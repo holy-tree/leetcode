@@ -1,0 +1,79 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+int count = 0;
+void Quick_sort(vector<int>& v, int l, int r);
+
+int main()
+{
+    vector<int> v{3,7,2,5,1,6,3,6,4,5,1,2,1,2};
+
+    Quick_sort(v, 0, v.size()-1);
+ 
+    for(int i : v)
+        cout<<i<<endl;
+    cout<<endl;
+    cout<<count<<endl;
+    system("pause");
+    return 0;
+}
+void Quick_sort(vector<int>& v, int l, int r){
+    if(l >= r)
+        return;
+
+    int i = l;
+    int j = r;
+    int mid = v[(i + j) / 2];
+
+    while(i < j){
+        while(v[i] < mid)
+            i++;
+        while(v[j] > mid)
+            j--;
+        if(i < j){
+            count++;
+            int temp = v[i];
+            v[i] = v[j];
+            v[j] = temp;
+            i++;
+            j--;
+        }
+    }
+    Quick_sort(v, l, j);
+    Quick_sort(v, j+1, r);
+}
+
+
+
+
+
+// void Quick_sort(vector<int>& v, int low, int high){
+//     if (high <= low) return;
+//     int i = low;
+//     int j = high + 1;
+//     int key = v[low];
+//     while (true){
+//         while (v[++i] < key){
+//             if (i == high){
+//                 break;
+//             }
+//         }
+//         while (v[--j] > key){
+//             if (j == low){
+//                 break;
+//             }
+//         }
+//         if (i >= j) break;
+
+//         int temp = v[i];
+//         v[i] = v[j];
+//         v[j] = temp;
+//     }
+
+//     v[low] = v[j];
+//     v[j] = key;
+//     Quick_sort(v, low, j - 1);
+//     Quick_sort(v, j + 1, high);
+// }
+ 
