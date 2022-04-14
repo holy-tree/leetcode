@@ -1,0 +1,91 @@
+#include<iostream>
+#include<vector>
+#include<Limits.h>
+
+using namespace std;
+// void merge_sort(vector<int> &vec, int p, int r);
+// void merge(vector<int> &vec, int p, int q, int r);
+void merge_sort2(vector<int>& vec, int l, int r);
+
+int main()
+{
+    vector<int> vec{8,4,6,1,3,164,16,10};
+
+    // merge_sort(vec, 0, vec.size()-1);
+    
+    merge_sort2(vec, 0, vec.size()-1);
+
+    for(int it : vec)
+        cout<<it<<endl;
+
+    system("pause");
+    return 0;
+
+}
+void merge_sort2(vector<int>& vec, int l, int r){
+
+    if(l >= r)
+        return;
+
+    int mid = (l + r) / 2;
+    merge_sort2(vec, l, mid);
+    merge_sort2(vec, mid+1, r);
+
+    int i = l;
+    int j = mid + 1;
+
+    vector<int> temp;
+    while(i <= mid && j <= r){
+        if(vec[i] <= vec[j]){
+            temp.push_back(vec[i++]);
+        }
+        else{
+            temp.push_back(vec[j++]);
+        }
+    }
+    while(i <= mid)
+        temp.push_back(vec[i++]);
+    while(j <= r)
+        temp.push_back(vec[j++]);
+
+    for(int k = l, kk = 0; k <= r; k++, kk++)
+        vec[k] = temp[kk];
+}
+
+
+
+
+
+
+
+
+// void merge_sort(vector<int> &vec, int p, int r){
+//     if(p < r){
+//         int q = (p + r) / 2;
+//         merge_sort(vec, p, q);
+//         merge_sort(vec, q+1, r);
+//         merge(vec, p, q, r);
+//     }
+// }
+// void merge(vector<int> &vec, int p, int q, int r){
+
+//     vector<int> vec_l;
+//     vector<int> vec_r;
+//     for(int i = p; i <= q; i++)
+//         vec_l.push_back(vec[i]);
+//     for(int i = q+1; i <= r; i++)
+//         vec_r.push_back(vec[i]);
+//     vec_l.push_back(INT_MAX);
+//     vec_r.push_back(INT_MAX);
+
+//     for(int k = p, i = 0, j = 0; k <= r; k++){
+//         if(vec_l[i] < vec_r[j]){
+//             vec[k] = vec_l[i];
+//             i++;
+//         }
+//         else{
+//             vec[k] = vec_r[j];
+//             j++;
+//         }
+//     }
+// }
